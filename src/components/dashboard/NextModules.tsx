@@ -19,7 +19,7 @@ const modules = [
     icon: Workflow,
     color: "from-success to-success/50",
     path: "/workflows",
-    unlocked: false,
+    unlocked: true,
   },
   {
     id: "GEISER_04",
