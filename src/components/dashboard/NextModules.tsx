@@ -1,4 +1,4 @@
-import { Lock, ArrowRight, Bot, Workflow, DollarSign, Brain, Store, Shield, Globe } from "lucide-react";
+import { Lock, ArrowRight, Bot, Workflow, DollarSign, Brain, Store, Shield, Globe, Crown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
@@ -66,6 +66,16 @@ const modules = [
     path: "/enterprise-federation",
     unlocked: true,
   },
+  {
+    id: "SUPREME_09",
+    name: "Supreme Engine",
+    description: "The Operating System for AI Monetization - Master revenue orchestration",
+    icon: Crown,
+    color: "from-warning via-primary to-accent",
+    path: "/supreme-engine",
+    unlocked: true,
+    isSupreme: true,
+  },
 ];
 
 export function NextModules() {
@@ -93,8 +103,13 @@ export function NextModules() {
                   </div>
                   <div className="flex items-center gap-2">
                     {module.unlocked && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/20 text-success border border-success/30">
-                        Active
+                      <span className={cn(
+                        "text-[10px] px-2 py-0.5 rounded-full border",
+                        (module as any).isSupreme 
+                          ? "bg-warning/20 text-warning border-warning/30" 
+                          : "bg-success/20 text-success border-success/30"
+                      )}>
+                        {(module as any).isSupreme ? "Supreme" : "Active"}
                       </span>
                     )}
                     <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
