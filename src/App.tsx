@@ -11,6 +11,7 @@ import BrainAI from "./pages/BrainAI";
 import Marketplace from "./pages/Marketplace";
 import GovernanceTrust from "./pages/GovernanceTrust";
 import EnterpriseFederation from "./pages/EnterpriseFederation";
+import SupremeEngine from "./pages/SupremeEngine";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/governance-trust" element={<GovernanceTrust />} />
           <Route path="/enterprise-federation" element={<EnterpriseFederation />} />
+          <Route path="/supreme-engine" element={<SupremeEngine />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
