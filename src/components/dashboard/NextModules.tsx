@@ -1,4 +1,4 @@
-import { Lock, ArrowRight, Bot, Workflow, DollarSign, Brain, Store } from "lucide-react";
+import { Lock, ArrowRight, Bot, Workflow, DollarSign, Brain, Store, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
@@ -46,6 +46,15 @@ const modules = [
     icon: Store,
     color: "from-primary to-success",
     path: "/marketplace",
+    unlocked: true,
+  },
+  {
+    id: "GEISER_07",
+    name: "Governance & Trust",
+    description: "Enterprise governance, compliance and trust frameworks",
+    icon: Shield,
+    color: "from-success to-primary",
+    path: "/governance-trust",
     unlocked: true,
   },
 ];
