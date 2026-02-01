@@ -9,6 +9,7 @@ import Workflows from "./pages/Workflows";
 import Monetization from "./pages/Monetization";
 import BrainAI from "./pages/BrainAI";
 import Marketplace from "./pages/Marketplace";
+import GovernanceTrust from "./pages/GovernanceTrust";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/monetization" element={<Monetization />} />
           <Route path="/brain-ai" element={<BrainAI />} />
           <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/governance-trust" element={<GovernanceTrust />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
