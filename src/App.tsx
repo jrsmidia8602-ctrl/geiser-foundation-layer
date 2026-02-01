@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import AgentsAndApis from "./pages/AgentsAndApis";
 import Workflows from "./pages/Workflows";
+import Monetization from "./pages/Monetization";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/agents-and-apis" element={<AgentsAndApis />} />
           <Route path="/workflows" element={<Workflows />} />
+          <Route path="/monetization" element={<Monetization />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

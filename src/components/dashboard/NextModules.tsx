@@ -28,7 +28,7 @@ const modules = [
     icon: DollarSign,
     color: "from-warning to-warning/50",
     path: "/monetization",
-    unlocked: false,
+    unlocked: true,
   },
   {
     id: "GEISER_05",
