@@ -1,4 +1,4 @@
-import { Lock, ArrowRight, Bot, Workflow, DollarSign, Brain } from "lucide-react";
+import { Lock, ArrowRight, Bot, Workflow, DollarSign, Brain, Store } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
@@ -37,6 +37,15 @@ const modules = [
     icon: Brain,
     color: "from-accent to-accent/50",
     path: "/brain-ai",
+    unlocked: true,
+  },
+  {
+    id: "GEISER_06",
+    name: "Marketplace",
+    description: "Sell and distribute agents, APIs and infrastructure bundles",
+    icon: Store,
+    color: "from-primary to-success",
+    path: "/marketplace",
     unlocked: true,
   },
 ];
