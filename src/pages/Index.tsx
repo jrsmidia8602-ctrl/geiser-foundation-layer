@@ -6,6 +6,11 @@ import { NeuralLog } from "@/components/dashboard/NeuralLog";
 import { ArchitecturePrinciples } from "@/components/dashboard/ArchitecturePrinciples";
 import { NextModules } from "@/components/dashboard/NextModules";
 import { ValueProposition } from "@/components/dashboard/ValueProposition";
+import { RuntimeLayerStatus } from "@/components/dashboard/runtime/RuntimeLayerStatus";
+import { RuntimeAgentStats } from "@/components/dashboard/runtime/RuntimeAgentStats";
+import { RuntimeInfrastructure } from "@/components/dashboard/runtime/RuntimeInfrastructure";
+import { RuntimeGapsActions } from "@/components/dashboard/runtime/RuntimeGapsActions";
+import { RuntimeBusinessReadiness } from "@/components/dashboard/runtime/RuntimeBusinessReadiness";
 
 const moduleData = {
   systemName: "XPEX SYSTEMS AI",
@@ -50,10 +55,30 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Runtime Status */}
+        <section className="mb-12">
+          <h2 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
+            <div className="w-1 h-5 bg-gradient-to-b from-accent to-primary rounded-full" />
+            Runtime Self-Description
+            <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-success/20 text-success border border-success/30 uppercase">
+              Live Status
+            </span>
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <RuntimeLayerStatus />
+            <RuntimeAgentStats />
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <RuntimeInfrastructure />
+            <RuntimeGapsActions />
+            <RuntimeBusinessReadiness />
+          </div>
+        </section>
+
         {/* Next Modules */}
         <section>
           <h2 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
-            <div className="w-1 h-5 bg-gradient-to-b from-accent to-primary rounded-full" />
+            <div className="w-1 h-5 bg-gradient-to-b from-warning to-success rounded-full" />
             Expansion Path
           </h2>
           <NextModules />
