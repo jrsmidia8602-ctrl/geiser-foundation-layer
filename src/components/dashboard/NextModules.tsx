@@ -1,4 +1,4 @@
-import { Lock, ArrowRight, Bot, Workflow, DollarSign, Brain, Store, Shield } from "lucide-react";
+import { Lock, ArrowRight, Bot, Workflow, DollarSign, Brain, Store, Shield, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
@@ -55,6 +55,15 @@ const modules = [
     icon: Shield,
     color: "from-success to-primary",
     path: "/governance-trust",
+    unlocked: true,
+  },
+  {
+    id: "GEISER_08",
+    name: "Enterprise Federation",
+    description: "Multi-org federation, global runtime, and data sovereignty",
+    icon: Globe,
+    color: "from-accent to-warning",
+    path: "/enterprise-federation",
     unlocked: true,
   },
 ];
