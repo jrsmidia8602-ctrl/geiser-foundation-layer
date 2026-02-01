@@ -1,5 +1,5 @@
 import { StatusBadge } from "../StatusBadge";
-import { Store, Package, Users, TrendingUp } from "lucide-react";
+import { Store, Package, Users, TrendingUp, Zap, Shield, DollarSign } from "lucide-react";
 
 interface MarketplaceModuleHeaderProps {
   systemName: string;
@@ -30,6 +30,9 @@ export function MarketplaceModuleHeader({
           <div className="flex items-center gap-2 mb-6 animate-slide-up">
             <Store className="w-5 h-5 text-primary" />
             <span className="text-sm font-mono text-primary tracking-wider">{systemName}</span>
+            <span className="px-2 py-0.5 rounded-full bg-accent/20 text-accent text-[10px] font-mono border border-accent/30 ml-2">
+              L10_MONETIZATION
+            </span>
           </div>
 
           {/* Main title */}
@@ -50,7 +53,7 @@ export function MarketplaceModuleHeader({
                 v{version}
               </span>
               <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-mono border border-primary/30">
-                marketplace_layer
+                infrastructure-marketplace
               </span>
             </div>
           </div>
@@ -64,9 +67,9 @@ export function MarketplaceModuleHeader({
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 animate-slide-up animation-delay-600">
             {[
               { icon: Package, label: "Active Products", value: "847" },
-              { icon: Users, label: "Vendors", value: "156" },
-              { icon: TrendingUp, label: "GMV", value: "$2.4M" },
-              { icon: Store, label: "Transactions", value: "12.3K" },
+              { icon: Users, label: "Tenants", value: "156" },
+              { icon: DollarSign, label: "GMV", value: "$2.4M" },
+              { icon: Zap, label: "API Calls/day", value: "12.3M" },
             ].map((stat, i) => (
               <div key={i} className="glass-card p-4 text-center">
                 <stat.icon className="w-5 h-5 text-primary mx-auto mb-2" />
@@ -76,16 +79,15 @@ export function MarketplaceModuleHeader({
             ))}
           </div>
 
-          {/* Marketplace Principles */}
+          {/* Core Purpose */}
           <div className="mt-8 p-4 rounded-xl bg-secondary/30 border border-border animate-slide-up animation-delay-600">
-            <h4 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">Marketplace Principles</h4>
+            <h4 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">Core Purpose</h4>
             <div className="flex flex-wrap gap-2">
               {[
-                "agents_as_products",
-                "infrastructure_as_a_service",
-                "usage_based_pricing",
-                "composable_intelligence",
-                "permissioned_distribution"
+                "venda_de_infraestrutura",
+                "monetização_de_agentes",
+                "licenciamento_de_APIs",
+                "infra_como_produto"
               ].map((principle) => (
                 <span
                   key={principle}
