@@ -37,7 +37,7 @@ const modules = [
     icon: Brain,
     color: "from-accent to-accent/50",
     path: "/brain-ai",
-    unlocked: false,
+    unlocked: true,
   },
 ];
 
