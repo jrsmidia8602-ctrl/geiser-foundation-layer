@@ -14,6 +14,8 @@ import EnterpriseFederation from "./pages/EnterpriseFederation";
 import SupremeEngine from "./pages/SupremeEngine";
 import ExecutiveDashboard from "./pages/ExecutiveDashboard";
 import SwarmDashboard from "./pages/SwarmDashboard";
+import AdminWallet from "./pages/AdminWallet";
+import AdminMonetizacao from "./pages/AdminMonetizacao";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
           <Route path="/supreme-engine" element={<SupremeEngine />} />
           <Route path="/executive-dashboard" element={<ExecutiveDashboard />} />
           <Route path="/swarm-dashboard" element={<SwarmDashboard />} />
+          <Route path="/admin/wallet" element={<AdminWallet />} />
+          <Route path="/admin/monetizacao" element={<AdminMonetizacao />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
