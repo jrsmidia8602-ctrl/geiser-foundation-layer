@@ -14,13 +14,249 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      customers: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          status: string | null
+          stripe_customer_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          status?: string | null
+          stripe_customer_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          status?: string | null
+          stripe_customer_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      licenses: {
+        Row: {
+          created_at: string | null
+          customer_id: string | null
+          expires_at: string | null
+          id: string
+          license_key: string
+          product_id: string | null
+          status: string | null
+          updated_at: string | null
+          usage_count: number | null
+          usage_limit: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          customer_id?: string | null
+          expires_at?: string | null
+          id?: string
+          license_key: string
+          product_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+          usage_count?: number | null
+          usage_limit?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          customer_id?: string | null
+          expires_at?: string | null
+          id?: string
+          license_key?: string
+          product_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+          usage_count?: number | null
+          usage_limit?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "licenses_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "licenses_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          active: boolean | null
+          agent_name: string
+          billing_type: string
+          created_at: string | null
+          currency: string | null
+          description: string | null
+          id: string
+          name: string
+          price: number
+          product_id: string
+          stripe_price_id: string | null
+          stripe_product_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          agent_name: string
+          billing_type: string
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          price: number
+          product_id: string
+          stripe_price_id?: string | null
+          stripe_product_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          agent_name?: string
+          billing_type?: string
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          price?: number
+          product_id?: string
+          stripe_price_id?: string | null
+          stripe_product_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          currency: string | null
+          customer_id: string | null
+          id: string
+          license_id: string | null
+          metadata: Json | null
+          product_id: string | null
+          status: string | null
+          stripe_payment_intent_id: string | null
+          stripe_subscription_id: string | null
+          tx_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          currency?: string | null
+          customer_id?: string | null
+          id?: string
+          license_id?: string | null
+          metadata?: Json | null
+          product_id?: string | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_subscription_id?: string | null
+          tx_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          currency?: string | null
+          customer_id?: string | null
+          id?: string
+          license_id?: string | null
+          metadata?: Json | null
+          product_id?: string | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_subscription_id?: string | null
+          tx_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_license_id_fkey"
+            columns: ["license_id"]
+            isOneToOne: false
+            referencedRelation: "licenses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      usage: {
+        Row: {
+          created_at: string | null
+          endpoint: string | null
+          id: string
+          license_id: string | null
+          requests: number | null
+          response_time_ms: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          endpoint?: string | null
+          id?: string
+          license_id?: string | null
+          requests?: number | null
+          response_time_ms?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          endpoint?: string | null
+          id?: string
+          license_id?: string | null
+          requests?: number | null
+          response_time_ms?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usage_license_id_fkey"
+            columns: ["license_id"]
+            isOneToOne: false
+            referencedRelation: "licenses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_license_key: { Args: never; Returns: string }
     }
     Enums: {
       [_ in never]: never
