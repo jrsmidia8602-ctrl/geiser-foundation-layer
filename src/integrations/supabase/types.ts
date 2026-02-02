@@ -216,6 +216,7 @@ export type Database = {
           replicated_from: string | null
           replication_count: number | null
           role: Database["public"]["Enums"]["agent_role"]
+          tenant_id: string | null
           trust_score: number | null
           updated_at: string | null
           version: string
@@ -233,6 +234,7 @@ export type Database = {
           replicated_from?: string | null
           replication_count?: number | null
           role: Database["public"]["Enums"]["agent_role"]
+          tenant_id?: string | null
           trust_score?: number | null
           updated_at?: string | null
           version?: string
@@ -250,6 +252,7 @@ export type Database = {
           replicated_from?: string | null
           replication_count?: number | null
           role?: Database["public"]["Enums"]["agent_role"]
+          tenant_id?: string | null
           trust_score?: number | null
           updated_at?: string | null
           version?: string
@@ -260,6 +263,172 @@ export type Database = {
             columns: ["replicated_from"]
             isOneToOne: false
             referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      api_keys: {
+        Row: {
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          key_hash: string
+          key_prefix: string
+          last_used_at: string | null
+          name: string
+          rate_limit: number | null
+          revoked_at: string | null
+          scopes: string[] | null
+          tenant_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          key_hash: string
+          key_prefix: string
+          last_used_at?: string | null
+          name: string
+          rate_limit?: number | null
+          revoked_at?: string | null
+          scopes?: string[] | null
+          tenant_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          key_hash?: string
+          key_prefix?: string
+          last_used_at?: string | null
+          name?: string
+          rate_limit?: number | null
+          revoked_at?: string | null
+          scopes?: string[] | null
+          tenant_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "api_keys_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          actor_type: string | null
+          created_at: string | null
+          id: string
+          ip_address: unknown
+          new_values: Json | null
+          old_values: Json | null
+          resource_id: string | null
+          resource_type: string
+          tenant_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          actor_type?: string | null
+          created_at?: string | null
+          id?: string
+          ip_address?: unknown
+          new_values?: Json | null
+          old_values?: Json | null
+          resource_id?: string | null
+          resource_type: string
+          tenant_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          actor_type?: string | null
+          created_at?: string | null
+          id?: string
+          ip_address?: unknown
+          new_values?: Json | null
+          old_values?: Json | null
+          resource_id?: string | null
+          resource_type?: string
+          tenant_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_accounts: {
+        Row: {
+          balance_credits: number | null
+          billing_email: string | null
+          created_at: string | null
+          id: string
+          period_end: string | null
+          period_start: string | null
+          plan: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          tenant_id: string | null
+          updated_at: string | null
+          usage_this_period: Json | null
+        }
+        Insert: {
+          balance_credits?: number | null
+          billing_email?: string | null
+          created_at?: string | null
+          id?: string
+          period_end?: string | null
+          period_start?: string | null
+          plan?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          tenant_id?: string | null
+          updated_at?: string | null
+          usage_this_period?: Json | null
+        }
+        Update: {
+          balance_credits?: number | null
+          billing_email?: string | null
+          created_at?: string | null
+          id?: string
+          period_end?: string | null
+          period_start?: string | null
+          plan?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          tenant_id?: string | null
+          updated_at?: string | null
+          usage_this_period?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_accounts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: true
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -359,6 +528,7 @@ export type Database = {
           source: string
           source_agent_id: string | null
           target_agent_id: string | null
+          tenant_id: string | null
         }
         Insert: {
           created_at?: string
@@ -374,6 +544,7 @@ export type Database = {
           source: string
           source_agent_id?: string | null
           target_agent_id?: string | null
+          tenant_id?: string | null
         }
         Update: {
           created_at?: string
@@ -389,6 +560,7 @@ export type Database = {
           source?: string
           source_agent_id?: string | null
           target_agent_id?: string | null
+          tenant_id?: string | null
         }
         Relationships: [
           {
@@ -403,6 +575,13 @@ export type Database = {
             columns: ["target_agent_id"]
             isOneToOne: false
             referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -517,6 +696,7 @@ export type Database = {
           email: string
           full_name: string | null
           id: string
+          tenant_id: string | null
           updated_at: string
           user_id: string
         }
@@ -527,6 +707,7 @@ export type Database = {
           email: string
           full_name?: string | null
           id?: string
+          tenant_id?: string | null
           updated_at?: string
           user_id: string
         }
@@ -537,10 +718,19 @@ export type Database = {
           email?: string
           full_name?: string | null
           id?: string
+          tenant_id?: string | null
           updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       swarm_events: {
         Row: {
@@ -754,6 +944,45 @@ export type Database = {
           },
         ]
       }
+      tenants: {
+        Row: {
+          created_at: string | null
+          id: string
+          max_agents: number | null
+          max_executions_per_day: number | null
+          name: string
+          plan: string
+          settings: Json | null
+          slug: string
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          max_agents?: number | null
+          max_executions_per_day?: number | null
+          name: string
+          plan?: string
+          settings?: Json | null
+          slug: string
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          max_agents?: number | null
+          max_executions_per_day?: number | null
+          name?: string
+          plan?: string
+          settings?: Json | null
+          slug?: string
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       transactions: {
         Row: {
           amount: number
@@ -855,6 +1084,64 @@ export type Database = {
             columns: ["license_id"]
             isOneToOne: false
             referencedRelation: "licenses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      usage_records: {
+        Row: {
+          agent_id: string | null
+          execution_id: string | null
+          id: string
+          metadata: Json | null
+          metric_type: string
+          quantity: number
+          recorded_at: string | null
+          tenant_id: string | null
+          unit_cost: number | null
+        }
+        Insert: {
+          agent_id?: string | null
+          execution_id?: string | null
+          id?: string
+          metadata?: Json | null
+          metric_type: string
+          quantity?: number
+          recorded_at?: string | null
+          tenant_id?: string | null
+          unit_cost?: number | null
+        }
+        Update: {
+          agent_id?: string | null
+          execution_id?: string | null
+          id?: string
+          metadata?: Json | null
+          metric_type?: string
+          quantity?: number
+          recorded_at?: string | null
+          tenant_id?: string | null
+          unit_cost?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usage_records_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "usage_records_execution_id_fkey"
+            columns: ["execution_id"]
+            isOneToOne: false
+            referencedRelation: "agent_executions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "usage_records_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
