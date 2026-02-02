@@ -38,3 +38,6 @@ verify_jwt = false
 
 [functions.health_check]
 verify_jwt = false
+
+[functions.create_agent]
+verify_jwt = false
