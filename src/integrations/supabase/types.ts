@@ -14,6 +14,145 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_executions: {
+        Row: {
+          agent_id: string
+          completed_at: string | null
+          cost: number | null
+          created_at: string | null
+          error: string | null
+          id: string
+          input: Json | null
+          latency_ms: number | null
+          output: Json | null
+          retry_count: number | null
+          started_at: string | null
+          status: string
+          task_type: string
+        }
+        Insert: {
+          agent_id: string
+          completed_at?: string | null
+          cost?: number | null
+          created_at?: string | null
+          error?: string | null
+          id?: string
+          input?: Json | null
+          latency_ms?: number | null
+          output?: Json | null
+          retry_count?: number | null
+          started_at?: string | null
+          status?: string
+          task_type: string
+        }
+        Update: {
+          agent_id?: string
+          completed_at?: string | null
+          cost?: number | null
+          created_at?: string | null
+          error?: string | null
+          id?: string
+          input?: Json | null
+          latency_ms?: number | null
+          output?: Json | null
+          retry_count?: number | null
+          started_at?: string | null
+          status?: string
+          task_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_executions_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agent_states: {
+        Row: {
+          agent_id: string
+          created_at: string | null
+          current_task: string | null
+          error_message: string | null
+          id: string
+          last_heartbeat: string | null
+          memory: Json | null
+          metrics: Json | null
+          status: Database["public"]["Enums"]["agent_status"]
+          updated_at: string | null
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string | null
+          current_task?: string | null
+          error_message?: string | null
+          id?: string
+          last_heartbeat?: string | null
+          memory?: Json | null
+          metrics?: Json | null
+          status?: Database["public"]["Enums"]["agent_status"]
+          updated_at?: string | null
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string | null
+          current_task?: string | null
+          error_message?: string | null
+          id?: string
+          last_heartbeat?: string | null
+          memory?: Json | null
+          metrics?: Json | null
+          status?: Database["public"]["Enums"]["agent_status"]
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_states_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agents: {
+        Row: {
+          config: Json | null
+          created_at: string | null
+          id: string
+          is_leader: boolean | null
+          name: string
+          priority: Database["public"]["Enums"]["priority_level"]
+          role: Database["public"]["Enums"]["agent_role"]
+          updated_at: string | null
+          version: string
+        }
+        Insert: {
+          config?: Json | null
+          created_at?: string | null
+          id?: string
+          is_leader?: boolean | null
+          name: string
+          priority?: Database["public"]["Enums"]["priority_level"]
+          role: Database["public"]["Enums"]["agent_role"]
+          updated_at?: string | null
+          version?: string
+        }
+        Update: {
+          config?: Json | null
+          created_at?: string | null
+          id?: string
+          is_leader?: boolean | null
+          name?: string
+          priority?: Database["public"]["Enums"]["priority_level"]
+          role?: Database["public"]["Enums"]["agent_role"]
+          updated_at?: string | null
+          version?: string
+        }
+        Relationships: []
+      }
       customers: {
         Row: {
           created_at: string | null
@@ -43,6 +182,56 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      decisions: {
+        Row: {
+          agent_id: string
+          confidence_score: number | null
+          context: Json | null
+          created_at: string | null
+          decision_type: string
+          executed_at: string | null
+          id: string
+          options: Json | null
+          reasoning: string | null
+          selected_option: string | null
+          status: Database["public"]["Enums"]["decision_status"]
+        }
+        Insert: {
+          agent_id: string
+          confidence_score?: number | null
+          context?: Json | null
+          created_at?: string | null
+          decision_type: string
+          executed_at?: string | null
+          id?: string
+          options?: Json | null
+          reasoning?: string | null
+          selected_option?: string | null
+          status?: Database["public"]["Enums"]["decision_status"]
+        }
+        Update: {
+          agent_id?: string
+          confidence_score?: number | null
+          context?: Json | null
+          created_at?: string | null
+          decision_type?: string
+          executed_at?: string | null
+          id?: string
+          options?: Json | null
+          reasoning?: string | null
+          selected_option?: string | null
+          status?: Database["public"]["Enums"]["decision_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "decisions_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       licenses: {
         Row: {
@@ -145,6 +334,95 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      swarm_events: {
+        Row: {
+          created_at: string | null
+          event_type: string
+          id: string
+          payload: Json | null
+          priority: Database["public"]["Enums"]["priority_level"] | null
+          processed: boolean | null
+          processed_at: string | null
+          source_agent_id: string | null
+          target_agent_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_type: string
+          id?: string
+          payload?: Json | null
+          priority?: Database["public"]["Enums"]["priority_level"] | null
+          processed?: boolean | null
+          processed_at?: string | null
+          source_agent_id?: string | null
+          target_agent_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_type?: string
+          id?: string
+          payload?: Json | null
+          priority?: Database["public"]["Enums"]["priority_level"] | null
+          processed?: boolean | null
+          processed_at?: string | null
+          source_agent_id?: string | null
+          target_agent_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "swarm_events_source_agent_id_fkey"
+            columns: ["source_agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "swarm_events_target_agent_id_fkey"
+            columns: ["target_agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      swarm_metrics: {
+        Row: {
+          agent_id: string | null
+          id: string
+          metric_type: string
+          recorded_at: string | null
+          tags: Json | null
+          unit: string | null
+          value: number
+        }
+        Insert: {
+          agent_id?: string | null
+          id?: string
+          metric_type: string
+          recorded_at?: string | null
+          tags?: Json | null
+          unit?: string | null
+          value: number
+        }
+        Update: {
+          agent_id?: string | null
+          id?: string
+          metric_type?: string
+          recorded_at?: string | null
+          tags?: Json | null
+          unit?: string | null
+          value?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "swarm_metrics_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       transactions: {
         Row: {
@@ -259,7 +537,31 @@ export type Database = {
       generate_license_key: { Args: never; Returns: string }
     }
     Enums: {
-      [_ in never]: never
+      agent_role:
+        | "orchestrator"
+        | "event_router"
+        | "decision_engine"
+        | "policy_guard"
+        | "retry_recovery"
+        | "scheduler"
+        | "insights_generator"
+        | "performance_optimizer"
+        | "anomaly_detector"
+        | "resource_allocator"
+      agent_status:
+        | "idle"
+        | "running"
+        | "paused"
+        | "error"
+        | "recovering"
+        | "terminated"
+      decision_status:
+        | "pending"
+        | "approved"
+        | "rejected"
+        | "executed"
+        | "failed"
+      priority_level: "low" | "medium" | "high" | "critical"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -386,6 +688,35 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      agent_role: [
+        "orchestrator",
+        "event_router",
+        "decision_engine",
+        "policy_guard",
+        "retry_recovery",
+        "scheduler",
+        "insights_generator",
+        "performance_optimizer",
+        "anomaly_detector",
+        "resource_allocator",
+      ],
+      agent_status: [
+        "idle",
+        "running",
+        "paused",
+        "error",
+        "recovering",
+        "terminated",
+      ],
+      decision_status: [
+        "pending",
+        "approved",
+        "rejected",
+        "executed",
+        "failed",
+      ],
+      priority_level: ["low", "medium", "high", "critical"],
+    },
   },
 } as const
