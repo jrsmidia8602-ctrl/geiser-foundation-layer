@@ -70,6 +70,53 @@ export type Database = {
           },
         ]
       }
+      agent_memory: {
+        Row: {
+          agent_id: string
+          created_at: string
+          embedding_json: Json | null
+          expires_at: string | null
+          id: string
+          key: string | null
+          memory_type: string
+          payload: Json
+          ttl_seconds: number | null
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          embedding_json?: Json | null
+          expires_at?: string | null
+          id?: string
+          key?: string | null
+          memory_type: string
+          payload?: Json
+          ttl_seconds?: number | null
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          embedding_json?: Json | null
+          expires_at?: string | null
+          id?: string
+          key?: string | null
+          memory_type?: string
+          payload?: Json
+          ttl_seconds?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_memory_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agent_states: {
         Row: {
           agent_id: string
@@ -129,6 +176,7 @@ export type Database = {
           priority: Database["public"]["Enums"]["priority_level"]
           rate_limit: number | null
           role: Database["public"]["Enums"]["agent_role"]
+          trust_score: number | null
           updated_at: string | null
           version: string
         }
@@ -143,6 +191,7 @@ export type Database = {
           priority?: Database["public"]["Enums"]["priority_level"]
           rate_limit?: number | null
           role: Database["public"]["Enums"]["agent_role"]
+          trust_score?: number | null
           updated_at?: string | null
           version?: string
         }
@@ -157,6 +206,7 @@ export type Database = {
           priority?: Database["public"]["Enums"]["priority_level"]
           rate_limit?: number | null
           role?: Database["public"]["Enums"]["agent_role"]
+          trust_score?: number | null
           updated_at?: string | null
           version?: string
         }
@@ -236,6 +286,69 @@ export type Database = {
           {
             foreignKeyName: "decisions_agent_id_fkey"
             columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          created_at: string
+          event_id: string
+          event_type: string
+          id: string
+          payload: Json
+          priority: Database["public"]["Enums"]["priority_level"] | null
+          processed: boolean | null
+          processed_at: string | null
+          result: Json | null
+          retry_count: number | null
+          source: string
+          source_agent_id: string | null
+          target_agent_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_id: string
+          event_type: string
+          id?: string
+          payload?: Json
+          priority?: Database["public"]["Enums"]["priority_level"] | null
+          processed?: boolean | null
+          processed_at?: string | null
+          result?: Json | null
+          retry_count?: number | null
+          source: string
+          source_agent_id?: string | null
+          target_agent_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_id?: string
+          event_type?: string
+          id?: string
+          payload?: Json
+          priority?: Database["public"]["Enums"]["priority_level"] | null
+          processed?: boolean | null
+          processed_at?: string | null
+          result?: Json | null
+          retry_count?: number | null
+          source?: string
+          source_agent_id?: string | null
+          target_agent_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_source_agent_id_fkey"
+            columns: ["source_agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "events_target_agent_id_fkey"
+            columns: ["target_agent_id"]
             isOneToOne: false
             referencedRelation: "agents"
             referencedColumns: ["id"]
@@ -753,6 +866,9 @@ export type Database = {
         | "validator"
         | "optimizer"
         | "watchdog"
+        | "publisher"
+        | "observer"
+        | "sentinel"
       agent_status:
         | "idle"
         | "running"
@@ -760,6 +876,9 @@ export type Database = {
         | "error"
         | "recovering"
         | "terminated"
+        | "thinking"
+        | "learning"
+        | "replicating"
       app_role: "admin" | "operator" | "client" | "viewer"
       decision_status:
         | "pending"
@@ -911,6 +1030,9 @@ export const Constants = {
         "validator",
         "optimizer",
         "watchdog",
+        "publisher",
+        "observer",
+        "sentinel",
       ],
       agent_status: [
         "idle",
@@ -919,6 +1041,9 @@ export const Constants = {
         "error",
         "recovering",
         "terminated",
+        "thinking",
+        "learning",
+        "replicating",
       ],
       app_role: ["admin", "operator", "client", "viewer"],
       decision_status: [

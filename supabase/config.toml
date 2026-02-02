@@ -41,3 +41,18 @@ verify_jwt = false
 
 [functions.create_agent]
 verify_jwt = false
+
+[functions.event_ingest]
+verify_jwt = false
+
+[functions.agent_selector]
+verify_jwt = false
+
+[functions.memory_writer]
+verify_jwt = false
+
+[functions.swarm_coordinator]
+verify_jwt = false
+
+[functions.self_health_monitor]
+verify_jwt = false
