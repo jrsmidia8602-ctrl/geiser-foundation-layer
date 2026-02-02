@@ -9,12 +9,17 @@ export default function AgentsPage() {
         <AgentCard
           name="Alpha"
           status="idle"
-          actions={["replicate", "pause", "publish"]}
+          actions={["replicate", "pause", "start"]}
         />
         <AgentCard
           name="Beta"
           status="running"
-          actions={["replicate", "pause", "publish"]}
+          actions={["replicate", "pause", "start"]}
+        />
+        <AgentCard
+          name="Gamma"
+          status="idle"
+          actions={["replicate", "pause", "start"]}
         />
       </Grid>
     </AppLayout>
