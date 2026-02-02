@@ -117,6 +117,44 @@ export type Database = {
           },
         ]
       }
+      agent_publications: {
+        Row: {
+          agent_id: string
+          channel: string
+          content: Json
+          created_at: string
+          id: string
+          published_at: string | null
+          status: string
+        }
+        Insert: {
+          agent_id: string
+          channel: string
+          content?: Json
+          created_at?: string
+          id?: string
+          published_at?: string | null
+          status?: string
+        }
+        Update: {
+          agent_id?: string
+          channel?: string
+          content?: Json
+          created_at?: string
+          id?: string
+          published_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_publications_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agent_states: {
         Row: {
           agent_id: string
@@ -175,6 +213,8 @@ export type Database = {
           name: string
           priority: Database["public"]["Enums"]["priority_level"]
           rate_limit: number | null
+          replicated_from: string | null
+          replication_count: number | null
           role: Database["public"]["Enums"]["agent_role"]
           trust_score: number | null
           updated_at: string | null
@@ -190,6 +230,8 @@ export type Database = {
           name: string
           priority?: Database["public"]["Enums"]["priority_level"]
           rate_limit?: number | null
+          replicated_from?: string | null
+          replication_count?: number | null
           role: Database["public"]["Enums"]["agent_role"]
           trust_score?: number | null
           updated_at?: string | null
@@ -205,12 +247,22 @@ export type Database = {
           name?: string
           priority?: Database["public"]["Enums"]["priority_level"]
           rate_limit?: number | null
+          replicated_from?: string | null
+          replication_count?: number | null
           role?: Database["public"]["Enums"]["agent_role"]
           trust_score?: number | null
           updated_at?: string | null
           version?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "agents_replicated_from_fkey"
+            columns: ["replicated_from"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       customers: {
         Row: {
@@ -869,6 +921,7 @@ export type Database = {
         | "publisher"
         | "observer"
         | "sentinel"
+        | "replicator"
       agent_status:
         | "idle"
         | "running"
@@ -1033,6 +1086,7 @@ export const Constants = {
         "publisher",
         "observer",
         "sentinel",
+        "replicator",
       ],
       agent_status: [
         "idle",
