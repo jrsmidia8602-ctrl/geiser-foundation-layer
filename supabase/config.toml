@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.usage_meter]
 verify_jwt = false
+
+[functions.dashboard_realtime_feed]
+verify_jwt = false
