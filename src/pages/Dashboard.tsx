@@ -1,26 +1,25 @@
 import { AppLayout } from '@/components/layout/AppLayout';
 import { Grid } from '@/components/layout/Grid';
-import { DashboardCard } from '@/components/dashboard-xpex/DashboardCard';
+import { AgentCard } from '@/components/dashboard-xpex/AgentCard';
 
 export default function Dashboard() {
   return (
-    <AppLayout title="Super Dashboard XPEX">
+    <AppLayout title="XPEX Super Dashboard">
       <Grid columns={3} gap={20}>
-        <DashboardCard
-          title="Agente Alpha"
-          description="Status: idle"
-          actions={[
-            { label: "Replicar", action: "alert('Agente alpha replicado!')" },
-            { label: "Pausar", action: "alert('Agente alpha pausado!')" }
-          ]}
+        <AgentCard
+          name="Alpha"
+          status="idle"
+          actions={["replicate", "pause", "start"]}
         />
-        <DashboardCard
-          title="Agente Beta"
-          description="Status: running"
-          actions={[
-            { label: "Replicar", action: "alert('Agente beta replicado!')" },
-            { label: "Pausar", action: "alert('Agente beta pausado!')" }
-          ]}
+        <AgentCard
+          name="Beta"
+          status="running"
+          actions={["replicate", "pause", "start"]}
+        />
+        <AgentCard
+          name="Gamma"
+          status="idle"
+          actions={["replicate", "pause", "start"]}
         />
       </Grid>
     </AppLayout>
