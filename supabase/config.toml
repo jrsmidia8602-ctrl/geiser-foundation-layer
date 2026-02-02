@@ -62,3 +62,18 @@ verify_jwt = false
 
 [functions.replicate_agent]
 verify_jwt = false
+
+[functions.track_event]
+verify_jwt = false
+
+[functions.score_lead]
+verify_jwt = false
+
+[functions.dispatch_message]
+verify_jwt = false
+
+[functions.present_offer]
+verify_jwt = false
+
+[functions.record_order]
+verify_jwt = false
