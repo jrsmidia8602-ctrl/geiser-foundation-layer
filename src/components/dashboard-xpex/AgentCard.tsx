@@ -23,21 +23,21 @@ export function AgentCard({ name, status, actions }: AgentCardProps) {
   };
 
   const handleReplicate = async () => {
-    alert(`Agent ${name} replicated!`);
+    alert(`Agente ${name} replicado`);
   };
 
   const handlePause = async () => {
-    alert(`Agent ${name} paused!`);
+    alert(`Agente ${name} pausado`);
   };
 
-  const handlePublish = async () => {
-    alert(`Agent ${name} published!`);
+  const handleStart = async () => {
+    alert(`Agente ${name} iniciado`);
   };
 
   const actionHandlers: Record<string, () => void> = {
     replicate: handleReplicate,
     pause: handlePause,
-    publish: handlePublish,
+    start: handleStart,
   };
 
   return (
