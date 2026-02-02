@@ -23,3 +23,18 @@ verify_jwt = false
 
 [functions.self_heal_loop]
 verify_jwt = false
+
+[functions.dispatch_task]
+verify_jwt = false
+
+[functions.execute_agent]
+verify_jwt = false
+
+[functions.validate_output]
+verify_jwt = false
+
+[functions.optimize_flow]
+verify_jwt = false
+
+[functions.health_check]
+verify_jwt = false
