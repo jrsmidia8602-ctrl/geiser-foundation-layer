@@ -3,6 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import WalletPage from "./pages/WalletPage";
+import AgentsPage from "./pages/AgentsPage";
+import LogsPage from "./pages/LogsPage";
 import Index from "./pages/Index";
 import AgentsAndApis from "./pages/AgentsAndApis";
 import Workflows from "./pages/Workflows";
@@ -27,7 +31,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          {/* XPEX Dashboard Routes */}
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/wallet" element={<WalletPage />} />
+          <Route path="/agents" element={<AgentsPage />} />
+          <Route path="/logs" element={<LogsPage />} />
+
+          {/* Legacy Routes */}
+          <Route path="/index" element={<Index />} />
           <Route path="/agents-and-apis" element={<AgentsAndApis />} />
           <Route path="/workflows" element={<Workflows />} />
           <Route path="/monetization" element={<Monetization />} />
