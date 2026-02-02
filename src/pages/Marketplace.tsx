@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { MarketplaceModuleHeader } from "@/components/dashboard/marketplace/MarketplaceModuleHeader";
+import { AgentCatalog } from "@/components/dashboard/marketplace/AgentCatalog";
 import { ProductTypes } from "@/components/dashboard/marketplace/ProductTypes";
 import { VendorSystem } from "@/components/dashboard/marketplace/VendorSystem";
 import { PricingModels } from "@/components/dashboard/marketplace/PricingModels";
@@ -48,6 +49,15 @@ const Marketplace = () => {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 pb-16">
+        {/* Agent Catalog - Live from DB */}
+        <section className="mb-12">
+          <h2 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
+            <div className="w-1 h-5 bg-gradient-to-b from-warning to-success rounded-full" />
+            🔥 Agent Catalog
+          </h2>
+          <AgentCatalog />
+        </section>
+
         {/* Agent Registry & Products */}
         <section className="mb-12">
           <h2 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
