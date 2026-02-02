@@ -2,7 +2,7 @@ import { CreditCard, CheckCircle, AlertTriangle, RefreshCw, FileText } from "luc
 import { cn } from "@/lib/utils";
 
 const providers = [
-  { name: "Stripe", status: "connected", icon: "💳" },
+  { name: "Stripe", status: "demo", icon: "💳" },
   { name: "PayPal", status: "ready", icon: "🅿️" },
   { name: "Crypto (USDC)", status: "ready", icon: "🔗" },
   { name: "Manual Invoice", status: "connected", icon: "📄" },
@@ -30,7 +30,7 @@ const statusConfig: Record<string, { icon: typeof CheckCircle; color: string; bg
 export function PaymentsPanel() {
   return (
     <div className="glass-card p-6">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-success/20">
             <CreditCard className="w-5 h-5 text-success" />
@@ -40,6 +40,17 @@ export function PaymentsPanel() {
             <p className="text-xs text-muted-foreground">Payment providers & processing</p>
           </div>
         </div>
+      </div>
+
+      {/* Demo Mode Banner */}
+      <div className="mb-6 p-3 rounded-lg bg-warning/10 border border-warning/30">
+        <div className="flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 text-warning" />
+          <span className="text-xs font-medium text-warning">Demo Mode</span>
+        </div>
+        <p className="text-[10px] text-muted-foreground mt-1">
+          Stripe não configurado. Pagamentos simulados para teste. Configure STRIPE_SECRET_KEY para produção.
+        </p>
       </div>
 
       {/* Providers */}
@@ -59,6 +70,8 @@ export function PaymentsPanel() {
                 "text-[10px] px-1.5 py-0.5 rounded-full",
                 provider.status === "connected"
                   ? "bg-success/20 text-success"
+                  : provider.status === "demo"
+                  ? "bg-warning/20 text-warning"
                   : "bg-secondary text-muted-foreground"
               )}>
                 {provider.status}
