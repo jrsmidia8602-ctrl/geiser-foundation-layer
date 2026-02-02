@@ -1,1 +1,10 @@
 project_id = "maayaxikjnfdpstyfcib"
+
+[functions.marketplace_checkout]
+verify_jwt = false
+
+[functions.license_issuer]
+verify_jwt = false
+
+[functions.usage_meter]
+verify_jwt = false
