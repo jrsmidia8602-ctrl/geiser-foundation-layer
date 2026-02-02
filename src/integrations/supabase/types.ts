@@ -119,34 +119,43 @@ export type Database = {
       }
       agents: {
         Row: {
+          confidence_score: number | null
           config: Json | null
           created_at: string | null
           id: string
           is_leader: boolean | null
+          max_parallel: number | null
           name: string
           priority: Database["public"]["Enums"]["priority_level"]
+          rate_limit: number | null
           role: Database["public"]["Enums"]["agent_role"]
           updated_at: string | null
           version: string
         }
         Insert: {
+          confidence_score?: number | null
           config?: Json | null
           created_at?: string | null
           id?: string
           is_leader?: boolean | null
+          max_parallel?: number | null
           name: string
           priority?: Database["public"]["Enums"]["priority_level"]
+          rate_limit?: number | null
           role: Database["public"]["Enums"]["agent_role"]
           updated_at?: string | null
           version?: string
         }
         Update: {
+          confidence_score?: number | null
           config?: Json | null
           created_at?: string | null
           id?: string
           is_leader?: boolean | null
+          max_parallel?: number | null
           name?: string
           priority?: Database["public"]["Enums"]["priority_level"]
+          rate_limit?: number | null
           role?: Database["public"]["Enums"]["agent_role"]
           updated_at?: string | null
           version?: string
@@ -386,6 +395,57 @@ export type Database = {
           },
         ]
       }
+      swarm_logs: {
+        Row: {
+          agent_id: string | null
+          created_at: string
+          event_type: string
+          id: string
+          log_id: string
+          message: string
+          payload: Json | null
+          severity: string
+          task_id: string | null
+        }
+        Insert: {
+          agent_id?: string | null
+          created_at?: string
+          event_type: string
+          id?: string
+          log_id: string
+          message: string
+          payload?: Json | null
+          severity?: string
+          task_id?: string | null
+        }
+        Update: {
+          agent_id?: string | null
+          created_at?: string
+          event_type?: string
+          id?: string
+          log_id?: string
+          message?: string
+          payload?: Json | null
+          severity?: string
+          task_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "swarm_logs_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "swarm_logs_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       swarm_metrics: {
         Row: {
           agent_id: string | null
@@ -420,6 +480,78 @@ export type Database = {
             columns: ["agent_id"]
             isOneToOne: false
             referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          agent_id: string | null
+          completed_at: string | null
+          confidence_score: number | null
+          created_at: string
+          description: string | null
+          error: string | null
+          id: string
+          input: Json | null
+          output: Json | null
+          parent_task_id: string | null
+          priority: Database["public"]["Enums"]["priority_level"]
+          started_at: string | null
+          state: string
+          task_id: string
+          task_type: string
+          updated_at: string
+        }
+        Insert: {
+          agent_id?: string | null
+          completed_at?: string | null
+          confidence_score?: number | null
+          created_at?: string
+          description?: string | null
+          error?: string | null
+          id?: string
+          input?: Json | null
+          output?: Json | null
+          parent_task_id?: string | null
+          priority?: Database["public"]["Enums"]["priority_level"]
+          started_at?: string | null
+          state?: string
+          task_id: string
+          task_type: string
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string | null
+          completed_at?: string | null
+          confidence_score?: number | null
+          created_at?: string
+          description?: string | null
+          error?: string | null
+          id?: string
+          input?: Json | null
+          output?: Json | null
+          parent_task_id?: string | null
+          priority?: Database["public"]["Enums"]["priority_level"]
+          started_at?: string | null
+          state?: string
+          task_id?: string
+          task_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_parent_task_id_fkey"
+            columns: ["parent_task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
             referencedColumns: ["id"]
           },
         ]
@@ -548,6 +680,11 @@ export type Database = {
         | "performance_optimizer"
         | "anomaly_detector"
         | "resource_allocator"
+        | "planner"
+        | "executor"
+        | "validator"
+        | "optimizer"
+        | "watchdog"
       agent_status:
         | "idle"
         | "running"
@@ -700,6 +837,11 @@ export const Constants = {
         "performance_optimizer",
         "anomaly_detector",
         "resource_allocator",
+        "planner",
+        "executor",
+        "validator",
+        "optimizer",
+        "watchdog",
       ],
       agent_status: [
         "idle",
