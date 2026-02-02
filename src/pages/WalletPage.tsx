@@ -11,26 +11,26 @@ export default function WalletPage() {
   const connectWallet = async () => {
     if (typeof window.ethereum !== 'undefined') {
       try {
-        const accounts = await window.ethereum.request({ 
-          method: 'eth_requestAccounts' 
+        const accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts'
         }) as string[];
-        const address = accounts[0];
-        setWalletAddress(address);
+        const wallet = accounts[0];
+        setWalletAddress(wallet);
 
-        const res = await fetch('/api/create-wallet-session', {
+        const res = await fetch('/api/wallet-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            walletAddress: address, 
-            productId: 'PROD_001' 
+          body: JSON.stringify({
+            wallet,
+            productId: 'PROD_XPEX'
           })
         });
-        
+
         const data = await res.json();
         console.log('Session created:', data);
-        
+
         setBalance('0 ETH');
-        alert(`Wallet conectado: ${address}`);
+        alert(`Wallet conectada: ${wallet}`);
       } catch (error) {
         console.error('Error connecting wallet:', error);
         alert('Erro ao conectar wallet');
