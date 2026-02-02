@@ -56,3 +56,9 @@ verify_jwt = false
 
 [functions.self_health_monitor]
 verify_jwt = false
+
+[functions.publish_output]
+verify_jwt = false
+
+[functions.replicate_agent]
+verify_jwt = false
